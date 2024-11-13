@@ -1,4 +1,4 @@
-name: Django aplication
+name: Django Application
 
 on: [pull_request]
 
@@ -18,9 +18,9 @@ jobs:
 
     - name: Dependences Install
       run: |
-        pip install virtualenv
+        pip install pipenv
         pipenv sync --dev
 
     - name: Run Automatic Tests
       run: |
-        pytest webdev/tests/
+        pipenv run pytest webdev/tests
