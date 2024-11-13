@@ -1,0 +1,26 @@
+name: Django aplication
+
+on: [pull_request]
+
+jobs:
+  build:
+    env:
+      PIPE_NO_INHERIT: 1
+      PIPE_IGNORE_VIRTUALENV: 1
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.12
+
+    - name: Dependences Install
+      run: |
+        pip install virtualenv
+        pipenv sync --dev
+
+    - name: Run Automatic Tests
+      run: |
+        pytest webdev/tests/
