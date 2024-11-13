@@ -1,0 +1,24 @@
+name: Django CI
+
+on: [pull_request]
+
+jobs:
+  build:
+    env:
+      PIPE_NO_INHERIT: 1
+      PIPE_IGNORE_VIRTUALENV: 1
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.12
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python manage.py test
