@@ -18,9 +18,8 @@ jobs:
 
     - name: Dependences Install
       run: |
-        pip install pipenv
-        pipenv sync --dev
+        pip install virtualenv
 
     - name: Run Automatic Tests
       run: |
-        pipenv run pytest webdev/tests
+        pytest webdev/tests
