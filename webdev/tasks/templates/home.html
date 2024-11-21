@@ -38,6 +38,18 @@
                 </div>
             </form>
             {% endfor %}
+
+            <h2 class="mt-5">Tarefas Concluidas</h2>
+            {% for task in tasks_is_conclude  %}
+            <form action="{% url 'tasks:details' task_id=task.id %}" method="post">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Descreva a sua tarefa" aria-label="Descreva a sua tarefa" name="name" value="{{ task.name }}" required="required">
+
+                    <button type="submit" class="btn btn-warning">Marcar como Pendente</button>
+                </div>
+            </form>
+            {% endfor %}
         </div>
     </div>
 </div>
