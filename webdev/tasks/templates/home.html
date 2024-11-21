@@ -25,17 +25,18 @@
                 <div class="form-text text-danger" id="basic-addon2" role="alert">{{ form.name.errors }}</div>
             </form>
 
-            <h2 class="mt-5">Lista de tarefas</h2>
-            
-            {% for task in pending_tasks %}
-                <form action="{% url 'tasks:home' %}" method="post">
-                    <div class="input-group mb-3">
-                        <div class="input-group-text">
-                            <input class="form-check-input mt-0" type="checkbox" aria-label="Checkbox para tarefa">
-                        </div>
-                        <input type="text" class="form-control" aria-label="Text input para tarefa" value="{{ task.name }}">
-                    </div>
-                </form>
+            <h2 class="mt-5">Tarefas Pendentes</h2>
+            {% for task in tasks_pending  %}
+            <form action="{% url 'tasks:details' task_id=task.id %}" method="post">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Descreva a sua tarefa" aria-label="Descreva a sua tarefa" name="name" value="{{ task.name }}" required="required">
+
+                    <input type="hidden" value="checked" name="is_conclude">
+
+                    <button type="submit" class="btn btn-success">Marcar como Feita</button>
+                </div>
+            </form>
             {% endfor %}
         </div>
     </div>
