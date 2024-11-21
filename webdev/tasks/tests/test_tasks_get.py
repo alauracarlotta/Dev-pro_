@@ -28,10 +28,22 @@ def tasks_list_pending(db):
     return tasks
 
 @pytest.fixture
-def response_with_tasks_list_pending(client, tasks_list_pending):
+def tasks_list_is_conclude(db):
+    tasks = [
+        Task(name = 'Tarefa 2', is_conclude = True)
+    ]
+    Task.objects.bulk_create(tasks)
+    return tasks
+
+@pytest.fixture
+def response_with_tasks_list(client, tasks_list_pending, tasks_list_is_conclude):
     result = client.get(reverse('tasks:home'))
     return result
 
-def test_tasks_list_pending_contains(response_with_tasks_list_pending, tasks_list_pending):
+def test_tasks_list_pending_contains(response_with_tasks_list, tasks_list_pending):
     for task in tasks_list_pending:
-        assertContains(response_with_tasks_list_pending, task.name)
+        assertContains(response_with_tasks_list, task.name)
+
+def test_tasks_list_is_conclude_contains(response_with_tasks_list, tasks_list_is_conclude):
+    for task in tasks_list_is_conclude:
+        assertContains(response_with_tasks_list, task.name)

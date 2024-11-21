@@ -18,21 +18,25 @@ def home(request):
             return HttpResponseRedirect(reverse('tasks:home'))
         else:
             tasks_pending = Task.objects.filter(is_conclude = False).all()
+            tasks_is_conclude = Task.objects.filter(is_conclude = True).all()
             return render(
                 request, 
                 'home.html', 
                 {
                     'form': form, 
-                    'tasks_pending': tasks_pending
+                    'tasks_pending': tasks_pending,
+                    'tasks_is_conclude': tasks_is_conclude,
                 }, 
                 status = 400
             )
     tasks_pending = Task.objects.filter(is_conclude = False).all()
+    tasks_is_conclude = Task.objects.filter(is_conclude = True).all()
     return render(
         request, 
         'home.html', 
         {
-            'tasks_pending': tasks_pending
+            'tasks_pending': tasks_pending,
+            'tasks_is_conclude': tasks_is_conclude,
         }
     )
 
